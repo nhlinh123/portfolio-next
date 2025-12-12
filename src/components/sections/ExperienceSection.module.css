@@ -1,0 +1,152 @@
+.experience {
+    background: var(--bg-primary);
+}
+
+/* Timeline */
+.timeline {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timelineItem {
+    display: flex;
+    gap: 32px;
+    padding-bottom: 48px;
+}
+
+.timelineItem:last-child {
+    padding-bottom: 0;
+}
+
+/* Timeline Marker */
+.timelineMarker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.markerDot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    box-shadow: 0 0 20px var(--accent-glow);
+    position: relative;
+}
+
+.markerDot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+    opacity: 0.3;
+}
+
+.markerLine {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--accent-primary), transparent);
+    margin-top: 12px;
+}
+
+/* Timeline Content */
+.timelineContent {
+    flex: 1;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 28px;
+    transition: all var(--transition-base);
+}
+
+.timelineContent:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 10px 30px var(--accent-glow);
+    transform: translateX(8px);
+}
+
+.timelineHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.position {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.company {
+    font-size: 1rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+.duration {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding: 6px 14px;
+    background: var(--bg-tertiary);
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+.description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Technologies */
+.technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.techTag {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(99, 102, 241, 0.05));
+    border-radius: 6px;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timelineItem {
+        gap: 20px;
+        padding-bottom: 32px;
+    }
+
+    .timelineContent {
+        padding: 20px;
+    }
+
+    .timelineContent:hover {
+        transform: translateX(4px);
+    }
+
+    .timelineHeader {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .duration {
+        align-self: flex-start;
+    }
+
+    .position {
+        font-size: 1.125rem;
+    }
+}
