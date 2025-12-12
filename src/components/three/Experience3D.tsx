@@ -9,7 +9,7 @@ import { ParallaxTerminal } from "./ParallaxTerminal";
 import { ParallaxTechOrbit } from "./ParallaxTechOrbit";
 import { ParallaxGrid } from "./ParallaxGrid";
 
-export function Experience3D() {
+export function Experience3D({ pages = 8 }: { pages?: number }) {
     const scroll = useScroll();
     const groupRef = useRef<THREE.Group>(null);
     const lightsRef = useRef<THREE.Group>(null);
@@ -20,10 +20,15 @@ export function Experience3D() {
         const scrollOffset = scroll.offset;
         const time = state.clock.getElapsedTime();
 
+        // Calculate effective scroll position in "screens"
+        // This ensures the 3D movement speed is consistent regardless of total pages
+        // 4 units per screen is our calibrated speed
+        const currentScreen = scrollOffset * (pages - 1);
+
         // Camera parallax based on scroll
-        state.camera.position.y = -scrollOffset * 30;
-        state.camera.position.z = 10 - scrollOffset * 5;
-        state.camera.rotation.x = scrollOffset * 0.2;
+        state.camera.position.y = -currentScreen * 4;
+        state.camera.position.z = 10 - Math.min(scrollOffset * 5, 5); // Cap Z movement slightly
+        state.camera.rotation.x = currentScreen * 0.05;
 
         // Subtle mouse parallax
         const mouseX = state.pointer.x * 0.5;

@@ -4,20 +4,23 @@ import React, { useCallback } from "react";
 import { siteConfig } from "../../../config/site";
 import styles from "./HtmlContent.module.css";
 
+import { useScroll } from "@react-three/drei";
+
 export function HtmlContent() {
+    const scroll = useScroll();
+
     const scrollToTop = useCallback(() => {
-        // Find the scroll container and scroll to top
-        const scrollContainer = document.querySelector('[data-lenis-prevent]') ||
-            document.querySelector('[style*="overflow"]') ||
-            document.documentElement;
+        scroll.el.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [scroll]);
 
-        if (scrollContainer) {
-            scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    const handleScrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault();
+        const element = document.getElementById(id);
+        if (element) {
+            const top = element.getBoundingClientRect().top - scroll.el.getBoundingClientRect().top + scroll.el.scrollTop - 100;
+            scroll.el.scrollTo({ top, behavior: 'smooth' });
         }
-
-        // Also try window scroll as fallback
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, []);
+    }, [scroll]);
 
     return (
         <div className={styles.wrapper}>
@@ -33,15 +36,13 @@ export function HtmlContent() {
                     <p className={styles.heroTagline}>{siteConfig.tagline}</p>
 
                     <div className={styles.heroActions}>
-                        <a href="#projects" className={styles.btnPrimary}>
+                        <a href="#projects" onClick={(e) => handleScrollTo(e, 'projects')} className={styles.btnPrimary}>
                             View My Work
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </a>
-                        <a href="#contact" className={styles.btnSecondary}>
-                            Get In Touch
-                        </a>
+
                     </div>
 
                     <div className={styles.socialLinks}>
